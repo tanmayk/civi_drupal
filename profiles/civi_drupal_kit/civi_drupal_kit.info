@@ -1,12 +1,9 @@
-; $Id$
-name = Pantheon
-description = Install with pre-configured integration for the Pantheon Platform
+name = Civi Drupal Kit
+description = Install with commonly used features pre-configured for Drupal + CiviCRM.
 version = VERSION
 core = 7.x
-hidden = TRUE
 dependencies[] = block
 dependencies[] = color
-dependencies[] = comment
 dependencies[] = contextual
 dependencies[] = dashboard
 dependencies[] = help
@@ -24,11 +21,3 @@ dependencies[] = toolbar
 dependencies[] = overlay
 dependencies[] = field_ui
 dependencies[] = file
-dependencies[] = rdf
-
-;dependencies[] = apachesolr
-;dependencies[] = apachesolr_search
-dependencies[] = pantheon_api
-dependencies[] = pantheon_login
-;dependencies[] = pantheon_apachesolr
-files[] = pantheon.profile
