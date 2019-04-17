@@ -125,7 +125,7 @@ $conf['adminimal_admin_menu_render'] = 'hidden';
 /**
  * Add SSL redirect.
  */
+$redirect_settings = dirname(__FILE__) . '/settings.redirect.php';
 if (defined('PANTHEON_ENVIRONMENT') && file_exists($redirect_settings)) {
-  $redirect_settings = dirname(__FILE__) . '/settings.redirect.php';
   include $redirect_settings;
 }
