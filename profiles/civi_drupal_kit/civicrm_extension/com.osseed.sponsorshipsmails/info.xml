@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<extension key="com.osseed.sponsorshipsmails" type="module">
+  <file>sponsorshipsmails</file>
+  <name>Sponsorships Emails</name>
+  <description>Send sponsorships mails on cron run for all contacts.</description>
+  <license>AGPL-3.0</license>
+  <maintainer>
+    <author>OSSeed TEchnologioes</author>
+    <email>hello@osseed.com</email>
+  </maintainer>
+  <releaseDate>2019-06-21</releaseDate>
+  <version>1.0</version>
+  <develStage>alpha</develStage>
+  <compatibility>
+    <ver>4.7</ver>
+  </compatibility>
+  <comments>Send sponsorships mails on cron run for all contacts.</comments>
+  <civix>
+    <namespace>CRM/Sponsorshipsmails</namespace>
+  </civix>
+</extension>
