@@ -33,6 +33,7 @@
  *
  */
 class CRM_Event_Form_Task_ParticipantStatus extends CRM_Event_Form_Task_Batch {
+
   public function buildQuickForm() {
     // CRM_Event_Form_Task_Batch::buildQuickForm() gets ufGroupId
     // from the form, so set it here to the id of the reserved profile
@@ -44,13 +45,13 @@ class CRM_Event_Form_Task_ParticipantStatus extends CRM_Event_Form_Task_Batch {
     $statuses = CRM_Event_PseudoConstant::participantStatus(NULL, NULL, 'label');
     asort($statuses, SORT_STRING);
     $this->add('select', 'status_change', ts('Change All Statuses'),
-      array(
+      [
         '' => ts('- select status -'),
-      ) + $statuses
+      ] + $statuses
     );
 
     $this->assign('context', 'statusChange');
-    # CRM-4321: display info on users being notified if any of the below statuses is enabled
+    // CRM-4321: display info on users being notified if any of the below statuses is enabled
     parent::assignToTemplate();
     parent::buildQuickForm();
   }

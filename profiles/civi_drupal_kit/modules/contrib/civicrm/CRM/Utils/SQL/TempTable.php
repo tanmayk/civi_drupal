@@ -54,7 +54,7 @@
  *
  * Example 3: Create an empty temp table with list of columns.
  *
- * $tmpTbl = CRM_Utils_SQL_TempTable::build()->setDurable()->setUtf8()->createWithColumns('id int(10, name varchar(64)');
+ * $tmpTbl = CRM_Utils_SQL_TempTable::build()->setDurable()->createWithColumns('id int(10, name varchar(64)');
  *
  * Example 4: Drop a table that you previously created.
  *
@@ -70,7 +70,8 @@ class CRM_Utils_SQL_TempTable {
   const UTF8 = 'DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci';
   const CATEGORY_LENGTH = 12;
   const CATEGORY_REGEXP = ';^[a-zA-Z0-9]+$;';
-  const ID_LENGTH = 37; // MAX{64} - CATEGORY_LENGTH{12} - CONST_LENGHTH{15} = 37
+  // MAX{64} - CATEGORY_LENGTH{12} - CONST_LENGHTH{15} = 37
+  const ID_LENGTH = 37;
   const ID_REGEXP = ';^[a-zA-Z0-9_]+$;';
   const INNODB = 'ENGINE=InnoDB';
   const MEMORY = 'ENGINE=MEMORY';
@@ -78,7 +79,12 @@ class CRM_Utils_SQL_TempTable {
   /**
    * @var bool
    */
-  protected $durable, $utf8;
+  protected $durable;
+
+  /**
+   * @var bool
+   */
+  protected $utf8;
 
   protected $category;
 
@@ -87,6 +93,8 @@ class CRM_Utils_SQL_TempTable {
   protected $autodrop;
 
   protected $memory;
+
+  protected $createSql;
 
   /**
    * @return CRM_Utils_SQL_TempTable
@@ -97,8 +105,7 @@ class CRM_Utils_SQL_TempTable {
     $t->id = md5(uniqid('', TRUE));
     // The constant CIVICRM_TEMP_FORCE_DURABLE is for local debugging.
     $t->durable = CRM_Utils_Constant::value('CIVICRM_TEMP_FORCE_DURABLE', FALSE);
-    // @deprecated This constant is deprecated and will be removed.
-    $t->utf8 = CRM_Utils_Constant::value('CIVICRM_TEMP_FORCE_UTF8', TRUE);
+    $t->utf8 = TRUE;
     $t->autodrop = FALSE;
     $t->memory = FALSE;
     return $t;
@@ -137,7 +144,8 @@ class CRM_Utils_SQL_TempTable {
       $this->utf8 ? self::UTF8 : '',
       ($selectQuery instanceof CRM_Utils_SQL_Select ? $selectQuery->toSQL() : $selectQuery)
     );
-    CRM_Core_DAO::executeQuery($sql, array(), TRUE, NULL, TRUE, FALSE);
+    CRM_Core_DAO::executeQuery($sql, [], TRUE, NULL, TRUE, FALSE);
+    $this->createSql = $sql;
     return $this;
   }
 
@@ -156,7 +164,8 @@ class CRM_Utils_SQL_TempTable {
       $this->memory ? self::MEMORY : self::INNODB,
       $this->utf8 ? self::UTF8 : ''
     );
-    CRM_Core_DAO::executeQuery($sql, array(), TRUE, NULL, TRUE, FALSE);
+    CRM_Core_DAO::executeQuery($sql, [], TRUE, NULL, TRUE, FALSE);
+    $this->createSql = $sql;
     return $this;
   }
 
@@ -167,7 +176,7 @@ class CRM_Utils_SQL_TempTable {
    */
   public function drop() {
     $sql = $this->toSQL('DROP', 'IF EXISTS');
-    CRM_Core_DAO::executeQuery($sql, array(), TRUE, NULL, TRUE, FALSE);
+    CRM_Core_DAO::executeQuery($sql, [], TRUE, NULL, TRUE, FALSE);
     return $this;
   }
 
@@ -206,6 +215,13 @@ class CRM_Utils_SQL_TempTable {
    */
   public function getId() {
     return $this->id;
+  }
+
+  /**
+   * @return string|NULL
+   */
+  public function getCreateSql() {
+    return $this->createSql;
   }
 
   /**
@@ -302,7 +318,9 @@ class CRM_Utils_SQL_TempTable {
   /**
    * Set table collation to UTF8.
    *
-   * This would make sense as a default but cautiousness during phasing in has made it opt-in.
+   * @deprecated This method is deprecated as tables should be assumed to have
+   * UTF-8 as the default character set and collation; some other character set
+   * or collation may be specified in the column definition.
    *
    * @param bool $value
    *

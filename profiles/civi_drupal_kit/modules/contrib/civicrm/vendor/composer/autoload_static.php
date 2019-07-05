@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf1d4ae0774611efaa97c899f395fd347
+class ComposerStaticInitcd1781a8dacad44c5937da68edcd9b09
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
@@ -44,11 +44,13 @@ class ComposerStaticInitf1d4ae0774611efaa97c899f395fd347
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
+            'Psr\\Cache\\' => 10,
             'PhpOffice\\PhpWord\\' => 18,
             'PhpOffice\\Common\\' => 17,
         ),
         'M' => 
         array (
+            'MimeType\\' => 9,
             'MJS\\TopSort\\Tests\\' => 18,
             'MJS\\TopSort\\' => 12,
         ),
@@ -69,6 +71,8 @@ class ComposerStaticInitf1d4ae0774611efaa97c899f395fd347
         'C' => 
         array (
             'Civi\\Cxn\\Rpc\\' => 13,
+            'Cache\\TagInterop\\' => 17,
+            'Cache\\IntegrationTests\\' => 23,
         ),
     );
 
@@ -133,6 +137,10 @@ class ComposerStaticInitf1d4ae0774611efaa97c899f395fd347
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
+        'Psr\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/cache/src',
+        ),
         'PhpOffice\\PhpWord\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoffice/phpword/src/PhpWord',
@@ -140,6 +148,10 @@ class ComposerStaticInitf1d4ae0774611efaa97c899f395fd347
         'PhpOffice\\Common\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoffice/common/src/Common',
+        ),
+        'MimeType\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/katzien/php-mime-type/src',
         ),
         'MJS\\TopSort\\Tests\\' => 
         array (
@@ -172,6 +184,14 @@ class ComposerStaticInitf1d4ae0774611efaa97c899f395fd347
         'Civi\\Cxn\\Rpc\\' => 
         array (
             0 => __DIR__ . '/..' . '/civicrm/civicrm-cxn-rpc/src',
+        ),
+        'Cache\\TagInterop\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cache/tag-interop',
+        ),
+        'Cache\\IntegrationTests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cache/integration-tests/src',
         ),
     );
 
@@ -227,6 +247,13 @@ class ComposerStaticInitf1d4ae0774611efaa97c899f395fd347
             'Mail' => 
             array (
                 0 => __DIR__ . '/..' . '/pear/mail',
+            ),
+        ),
+        'L' => 
+        array (
+            'Log' => 
+            array (
+                0 => __DIR__ . '/..' . '/pear/log',
             ),
         ),
         'F' => 
@@ -310,6 +337,7 @@ class ComposerStaticInitf1d4ae0774611efaa97c899f395fd347
         'ezcBaseConfigurationInitializer' => __DIR__ . '/..' . '/zetacomponents/base/src/interfaces/configuration_initializer.php',
         'ezcBaseDoubleClassRepositoryPrefixException' => __DIR__ . '/..' . '/zetacomponents/base/src/exceptions/double_class_repository_prefix.php',
         'ezcBaseException' => __DIR__ . '/..' . '/zetacomponents/base/src/exceptions/exception.php',
+        'ezcBaseExportable' => __DIR__ . '/..' . '/zetacomponents/base/src/interfaces/exportable.php',
         'ezcBaseExtensionNotFoundException' => __DIR__ . '/..' . '/zetacomponents/base/src/exceptions/extension_not_found.php',
         'ezcBaseFeatures' => __DIR__ . '/..' . '/zetacomponents/base/src/features.php',
         'ezcBaseFile' => __DIR__ . '/..' . '/zetacomponents/base/src/file.php',
@@ -373,6 +401,7 @@ class ComposerStaticInitf1d4ae0774611efaa97c899f395fd347
         'ezcMailMultipartReportParser' => __DIR__ . '/..' . '/zetacomponents/mail/src/parser/parts/multipart_report_parser.php',
         'ezcMailNoSuchMessageException' => __DIR__ . '/..' . '/zetacomponents/mail/src/exceptions/no_such_message.php',
         'ezcMailOffsetOutOfRangeException' => __DIR__ . '/..' . '/zetacomponents/mail/src/exceptions/offset_out_of_range.php',
+        'ezcMailOptions' => __DIR__ . '/..' . '/zetacomponents/mail/src/options/mail_options.php',
         'ezcMailParser' => __DIR__ . '/..' . '/zetacomponents/mail/src/parser/parser.php',
         'ezcMailParserOptions' => __DIR__ . '/..' . '/zetacomponents/mail/src/options/parser_options.php',
         'ezcMailParserSet' => __DIR__ . '/..' . '/zetacomponents/mail/src/parser/interfaces/parser_set.php',
@@ -418,11 +447,11 @@ class ComposerStaticInitf1d4ae0774611efaa97c899f395fd347
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf1d4ae0774611efaa97c899f395fd347::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf1d4ae0774611efaa97c899f395fd347::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitf1d4ae0774611efaa97c899f395fd347::$prefixesPsr0;
-            $loader->fallbackDirsPsr0 = ComposerStaticInitf1d4ae0774611efaa97c899f395fd347::$fallbackDirsPsr0;
-            $loader->classMap = ComposerStaticInitf1d4ae0774611efaa97c899f395fd347::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitcd1781a8dacad44c5937da68edcd9b09::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitcd1781a8dacad44c5937da68edcd9b09::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitcd1781a8dacad44c5937da68edcd9b09::$prefixesPsr0;
+            $loader->fallbackDirsPsr0 = ComposerStaticInitcd1781a8dacad44c5937da68edcd9b09::$fallbackDirsPsr0;
+            $loader->classMap = ComposerStaticInitcd1781a8dacad44c5937da68edcd9b09::$classMap;
 
         }, null, ClassLoader::class);
     }

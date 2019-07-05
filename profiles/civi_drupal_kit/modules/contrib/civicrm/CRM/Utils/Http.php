@@ -36,7 +36,7 @@ class CRM_Utils_Http {
    * Parse the expiration time from a series of HTTP headers.
    *
    * @param array $headers
-   * @return int|NULL
+   * @return int|null
    *   Expiration tme as seconds since epoch, or NULL if not cacheable.
    */
   public static function parseExpiration($headers) {
@@ -61,7 +61,7 @@ class CRM_Utils_Http {
    *   Ex: Array("max-age"=>86400, "public"=>1).
    */
   public static function parseCacheControl($value) {
-    $result = array();
+    $result = [];
 
     $parts = preg_split('/, */', $value);
     foreach ($parts as $part) {

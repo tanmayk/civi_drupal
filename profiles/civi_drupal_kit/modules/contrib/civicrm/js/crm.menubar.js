@@ -78,7 +78,7 @@
             })
             .on('show.smapi', function(e, menu) {
               // Focus menu when opened with an accesskey
-              $(menu).siblings('a[accesskey]:not(:hover)').focus();
+              $(menu).siblings('a[accesskey]').focus();
             })
             .smartmenus(CRM.menubar.settings);
           initialized = true;
@@ -365,7 +365,12 @@
           $('#crm-qsearch-input').focus().autocomplete("search");
         }, 1);
       });
-      $('.crm-quickSearchField input[value="' + CRM.cache.get('quickSearchField', 'sort_name') + '"]').prop('checked', true);
+      var savedDefault = CRM.cache.get('quickSearchField');
+      if (savedDefault) {
+        $('.crm-quickSearchField input[value="' + savedDefault + '"]').prop('checked', true);
+      } else {
+        $('.crm-quickSearchField:first input').prop('checked', true);
+      }
       setQuickSearchValue();
       $('#civicrm-menu').on('activate.smapi', function(e, item) {
         return !$('ul.crm-quickSearch-results').is(':visible:not(.ui-state-disabled)');

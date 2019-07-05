@@ -271,7 +271,7 @@ class CRM_Contact_Import_ImportJob {
       }
     }
 
-    if ($this->_newTagName || count($this->_tag)) {
+    if ($this->_newTagName || !empty($this->_tag)) {
       $tagAdditions = $this->_tagImportedContactsWithNewTag($contactIds,
         $this->_newTagName,
         $this->_newTagDesc
@@ -416,7 +416,7 @@ class CRM_Contact_Import_ImportJob {
     $result = CRM_Core_DAO::executeQuery($query, array($database));
     $incompleteImportTables = array();
     while ($importTable = $result->fetch()) {
-      if (!$this->isComplete($importTable)) {
+      if (!self::isComplete($importTable)) {
         $incompleteImportTables[] = $importTable;
       }
     }

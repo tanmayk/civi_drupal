@@ -51,7 +51,7 @@ class CRM_Extension_System {
   /**
    * The URL of the remote extensions repository.
    *
-   * @var string|FALSE
+   * @var string|false
    */
   private $_repoUrl = NULL;
 
@@ -89,11 +89,13 @@ class CRM_Extension_System {
   }
 
   /**
+   * Class constructor.
+   *
    * @param array $parameters
    *   List of configuration values required by the extension system.
    *   Missing values will be guessed based on $config.
    */
-  public function __construct($parameters = array()) {
+  public function __construct($parameters = []) {
     $config = CRM_Core_Config::singleton();
     $parameters['extensionsDir'] = CRM_Utils_Array::value('extensionsDir', $parameters, $config->extensionsDir);
     $parameters['extensionsURL'] = CRM_Utils_Array::value('extensionsURL', $parameters, $config->extensionsURL);
@@ -109,7 +111,8 @@ class CRM_Extension_System {
     if (!array_key_exists('domain_id', $parameters)) {
       $parameters['domain_id'] = CRM_Core_Config::domainID();
     }
-    ksort($parameters); // guaranteed ordering - useful for md5(serialize($parameters))
+    // guaranteed ordering - useful for md5(serialize($parameters))
+    ksort($parameters);
 
     $this->parameters = $parameters;
   }
@@ -121,7 +124,7 @@ class CRM_Extension_System {
    */
   public function getFullContainer() {
     if ($this->fullContainer === NULL) {
-      $containers = array();
+      $containers = [];
 
       if ($this->getDefaultContainer()) {
         $containers['default'] = $this->getDefaultContainer();
@@ -149,6 +152,12 @@ class CRM_Extension_System {
             $this->getCache(),
             'cmsvendor'
           );
+        }
+      }
+
+      if (!defined('CIVICRM_TEST')) {
+        foreach ($containers as $container) {
+          $container->addFilter([__CLASS__, 'isNotTestExtension']);
         }
       }
 
@@ -205,12 +214,12 @@ class CRM_Extension_System {
    */
   public function getManager() {
     if ($this->manager === NULL) {
-      $typeManagers = array(
+      $typeManagers = [
         'payment' => new CRM_Extension_Manager_Payment($this->getMapper()),
         'report' => new CRM_Extension_Manager_Report(),
         'search' => new CRM_Extension_Manager_Search(),
         'module' => new CRM_Extension_Manager_Module($this->getMapper()),
-      );
+      ];
       $this->manager = new CRM_Extension_Manager($this->getFullContainer(), $this->getDefaultContainer(), $this->getMapper(), $typeManagers);
     }
     return $this->manager;
@@ -243,7 +252,8 @@ class CRM_Extension_System {
       $this->downloader = new CRM_Extension_Downloader(
         $this->getManager(),
         $basedir,
-        CRM_Utils_File::tempdir() // WAS: $config->extensionsDir . DIRECTORY_SEPARATOR . 'tmp';
+        // WAS: $config->extensionsDir . DIRECTORY_SEPARATOR . 'tmp';
+        CRM_Utils_File::tempdir()
       );
     }
     return $this->downloader;
@@ -254,13 +264,13 @@ class CRM_Extension_System {
    */
   public function getCache() {
     if ($this->cache === NULL) {
-      $cacheGroup = md5(serialize(array('ext', $this->parameters)));
+      $cacheGroup = md5(serialize(['ext', $this->parameters]));
       // Extension system starts before container. Manage our own cache.
-      $this->cache = CRM_Utils_Cache::create(array(
+      $this->cache = CRM_Utils_Cache::create([
         'name' => $cacheGroup,
-        'type' => array('*memory*', 'SqlGroup', 'ArrayCache'),
+        'type' => ['*memory*', 'SqlGroup', 'ArrayCache'],
         'prefetch' => TRUE,
-      ));
+      ]);
     }
     return $this->cache;
   }
@@ -298,6 +308,10 @@ class CRM_Extension_System {
     return Civi::$statics[__CLASS__]['compatibility'];
   }
 
+  public static function isNotTestExtension(CRM_Extension_Info $info) {
+    return (bool) !preg_match('/^test\./', $info->key);
+  }
+
   /**
    * Take an extension's raw XML info and add information about the
    * extension's status on the local system.
@@ -323,7 +337,8 @@ class CRM_Extension_System {
 
     switch ($extensionRow['status']) {
       case CRM_Extension_Manager::STATUS_UNINSTALLED:
-        $extensionRow['statusLabel'] = ''; // ts('Uninstalled');
+        // ts('Uninstalled');
+        $extensionRow['statusLabel'] = '';
         break;
 
       case CRM_Extension_Manager::STATUS_DISABLED:
@@ -331,7 +346,8 @@ class CRM_Extension_System {
         break;
 
       case CRM_Extension_Manager::STATUS_INSTALLED:
-        $extensionRow['statusLabel'] = ts('Enabled'); // ts('Installed');
+        // ts('Installed');
+        $extensionRow['statusLabel'] = ts('Enabled');
         break;
 
       case CRM_Extension_Manager::STATUS_DISABLED_MISSING:
@@ -339,7 +355,8 @@ class CRM_Extension_System {
         break;
 
       case CRM_Extension_Manager::STATUS_INSTALLED_MISSING:
-        $extensionRow['statusLabel'] = ts('Enabled (Missing)'); // ts('Installed');
+        // ts('Installed');
+        $extensionRow['statusLabel'] = ts('Enabled (Missing)');
         break;
 
       default:

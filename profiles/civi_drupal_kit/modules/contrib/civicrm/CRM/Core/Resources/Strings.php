@@ -30,12 +30,13 @@
  *
  * @package CRM
  * @copyright CiviCRM LLC (c) 2004-2019
- * $Id$
  */
 class CRM_Core_Resources_Strings {
 
   /**
-   * @var CRM_Utils_Cache_Interface|NULL
+   * Cache.
+   *
+   * @var CRM_Utils_Cache_Interface|null
    */
   private $cache = NULL;
 
@@ -63,20 +64,24 @@ class CRM_Core_Resources_Strings {
    *   File path.
    * @param string $format
    *   Type of file (e.g. 'text/javascript', 'text/html').
+   *
    * @return array
    *   List of translatable strings.
+   *
+   * @throws \Exception
    */
   public function get($bucket, $file, $format) {
-    $stringsByFile = $this->cache->get($bucket); // array($file => array(...strings...))
+    // array($file => array(...strings...))
+    $stringsByFile = $this->cache->get($bucket);
     if (!$stringsByFile) {
-      $stringsByFile = array();
+      $stringsByFile = [];
     }
     if (!isset($stringsByFile[$file])) {
       if ($file && is_readable($file)) {
         $stringsByFile[$file] = $this->extract($file, $format);
       }
       else {
-        $stringsByFile[$file] = array();
+        $stringsByFile[$file] = [];
       }
       $this->cache->set($bucket, $stringsByFile);
     }
