@@ -1,0 +1,24 @@
+.fc-event-time, .fc-event-title {
+  color:#fff;
+}
+
+.event-info-details a{
+	border-bottom: 1px solid #ddd;
+  display: block;
+  padding-left: 1px;
+}
+
+a.fc-day-grid-event.fc-h-event.fc-event.fc-start.fc-end.hebdate {
+  font-weight: bold;
+}
+
+a.fc-day-grid-event.fc-h-event.fc-event.fc-start.fc-end {
+  color: white;
+}
+.fc-day-grid-event .fc-time {
+  font-weight: normal !important;
+}
+
+#crm-container #s2id_event_selector {
+    margin: 6px 0px;
+}
