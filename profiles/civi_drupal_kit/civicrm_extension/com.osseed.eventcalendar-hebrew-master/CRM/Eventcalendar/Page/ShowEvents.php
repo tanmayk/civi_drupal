@@ -140,6 +140,7 @@ class CRM_Eventcalendar_Page_ShowEvents extends CRM_Core_Page {
     $candlelighting_zip  = $settings['event_candlelighting_minutes_zip'];
     $candlelighting_lat  = $settings['event_candlelighting_minutes_lat'];
     $geo_api_query_string = '';
+    $have_valid_location = '';
 
     //  Get timezone from parameters
     if(($is_sunsetTimes || $is_candlelight) && $candlelighting_lat) {
