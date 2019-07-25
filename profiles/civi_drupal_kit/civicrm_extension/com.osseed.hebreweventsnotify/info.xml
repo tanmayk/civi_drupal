@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<extension key="com.osseed.hebreweventsnotify" type="module">
+  <file>hebreweventsnotify</file>
+  <name>Hebrew Events Notify</name>
+  <description>Send mails on cron run for all upcoming birthdays/anniversaries contacts</description>
+  <license>AGPL-3.0</license>
+  <maintainer>
+    <author>OSSeed Technologioes</author>
+    <email>hello@osseed.com</email>
+  </maintainer>
+  <releaseDate>2019-07-22</releaseDate>
+  <version>1.0</version>
+  <develStage>alpha</develStage>
+  <compatibility>
+    <ver>5.0</ver>
+  </compatibility>
+  <comments>Send mails on cron run for all upcoming birthdays/anniversaries contacts</comments>
+  <civix>
+    <namespace>CRM/Hebreweventsnotify</namespace>
+  </civix>
+</extension>
